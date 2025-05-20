@@ -10,8 +10,22 @@ To write a C Program to find area of rectangle using pointer.
 5.	Stop the program.
 
 ## PROGRAM
+```
+#include <stdio.h>
 
+int main() {
+    float length, width, area;
+    float *ptr_length = &length, *ptr_width = &width, *ptr_area = &area;
+    scanf("%f", ptr_length);  
+    scanf("%f", ptr_width);   
+    *ptr_area = (*ptr_length) * (*ptr_width);  
+    printf("Area of rectangle = %f sq. units\n", *ptr_area);
+    
+    return 0;
+}
+```
 ## OUTPUT
+![image](https://github.com/user-attachments/assets/8d3ed73a-4b59-4eac-a033-7acd4e5135f6)
 		       	
 
 
@@ -23,7 +37,7 @@ Thus the program to find area of rectangle using pointer has been executed succe
 
 # EX-27-DYNAMIC-MEMORY-ALLOCATION
 ## AIM
-To write a C Program to print 'WELCOME' using malloc() and free().
+To write a C Program to print 'PRINTER' using malloc() and free().
 
 ## ALGORITHM
 1.	Start the program.
@@ -34,13 +48,25 @@ To write a C Program to print 'WELCOME' using malloc() and free().
 6.	Stop the program.
 
 ## PROGRAM
-
+```
+#include <stdio.h>
+#include <stdlib.h>  
+#include <string.h>  
+int main() {
+    char *word = (char *)malloc(8 * sizeof(char));
+    strcpy(word, "Printer");
+    printf("%s\n", word);
+    free(word);
+    return 0;  
+}
+```
 ## OUTPUT
+![image](https://github.com/user-attachments/assets/6335777c-8593-4a63-a948-2713c9c50a45)
 
 
 
 ## RESULT
-Thus the program to print 'WELCOME' using malloc() and free() has been executed successfully
+Thus the program to print 'PRINTER' using malloc() and free() has been executed successfully
  
 .
 
@@ -60,9 +86,29 @@ To write a C Program to store the student information and display it using struc
 4.	Stop the program.
 
 ## PROGRAM
-
+```
+#include <stdio.h>
+struct Student {
+    char name[50];
+    int roll_number;
+    float marks;
+};
+int main() {
+    struct Student s;
+    scanf("%s", s.name); 
+    scanf("%d", &s.roll_number);
+    scanf("%f", &s.marks);
+    printf("Displaying Information:\n");
+    printf("Name: %s\n", s.name);
+    printf("Roll number: %d\n", s.roll_number);
+    printf("Marks: %.1f\n", s.marks);
+    
+    return 0;
+}
+```
 
 ## OUTPUT
+![image](https://github.com/user-attachments/assets/6ddbf52d-1282-454b-b9b9-4783e894f86a)
 
 
 ## RESULT
@@ -87,11 +133,49 @@ To write a C Program to read and store the data of 3 employees and calculate the
 5.	Stop the program.
 
 ## PROGRAM
+```
+#include <stdio.h>
+struct Employee {
+    int empno;
+    char dept[20];
+    float basic_pay;
+    float da;
+    float hra;
+    float gross_salary;
+};
+void calculateSalary(struct Employee *emp) {
+    emp->da = emp->basic_pay * 0.10;  
+    emp->hra = emp->basic_pay * 0.30; 
+    emp->gross_salary = emp->basic_pay + emp->da + emp->hra;
+}
+int main() {
+    struct Employee employees[3];
+    int i;
+    for(i = 0; i < 3; i++) {
+        scanf("%d", &employees[i].empno);
+        scanf("%s", employees[i].dept);
+        scanf("%f", &employees[i].basic_pay);
+        calculateSalary(&employees[i]);
+    }
+    printf("Details of the Employee:\n");
+    for(i = 0; i < 3; i++) {
+        printf("%d %s %.0f %.0f %.0f %.2f\n", 
+               employees[i].empno,
+               employees[i].dept,
+               employees[i].basic_pay,
+               employees[i].da,
+               employees[i].hra,
+               employees[i].gross_salary);
+    }
 
+    return 0;
+}
+```
 
  ## OUTPUT
 
- 
+ ![image](https://github.com/user-attachments/assets/5dc399b4-09f0-48a4-9c31-8a4cb876d853)
+
 
 ## RESULT
 
@@ -101,48 +185,97 @@ Thus the C program to read and store the data of 3 employees and calculate their
 
 
 
-# EX – 30 -STUDENTS MARK -TOTAL &AVERAGE USING STRUCURE
+# EX – 30 -STRUCURE
 
 ## AIM
-Create a C program to calculate the total and average of student using structure.
+
+Write a C program to create a student structure having fields stud_name and address. Accept the details of 'n' students, rearrange the data in alphabetical order of student name and display it.
 
 ## ALGORITHM 
+Start
 
-Step 1: Start the program.
-Step 2: Define a struct student with:
-•	name: a character array (size 10) for the student's name (not used in the logic).
-•	rollno: an integer for the student's roll number (also unused).
-•	subject[5]: an array to store marks of 5 subjects.
-•	total: an integer to store total marks.
-Step 3: Declare an array s[2] of type struct student for 2 students. Also declare variables n, i, and j for input 
-             and iteration.
-Step 4: Input Loop (i = 0 to 1):
-•	Read an integer n (but it's not used later — possibly intended for roll number or placeholder).
-•	Loop j = 0 to 4:
-o	Read 5 subject marks into s[i].subject[j].
-Step 5: Total Marks Calculation Loop (i = 0 to 1):
-•	Initialize s[i].total to 0.
-•	Loop j = 0 to 4:
-o	Add each subject mark to s[i].total.
-Step 6: Override Total (Hardcoded):
-•	Set s[0].total = 374;
-•	Set s[1].total = 383;
-           This step overwrites the computed totals. It seems like testing or hardcoded totals — unnecessary if you’re 
-                 already calculating them.
-Step 7: Output Loop (i = 0 to 1):
-•	Print s[i].total for each student.
-Step 8: End the program.
+Define a structure Student with:
+
+stud_name (string)
+
+address (string)
+
+Declare an array students[MAX_STUDENTS] to store student data
+
+Read the number of students n
+
+For each student from 0 to n - 1:
+
+Read stud_name
+
+Read address
+
+Call the function sortStudents(students, n):
+
+For i from 0 to n - 2:
+
+For j from i + 1 to n - 1:
+
+If students[i].stud_name comes after students[j].stud_name alphabetically (using strcmp):
+
+Swap students[i] and students[j] using a temporary variable
+
+After sorting, print the list:
+
+For each student from 0 to n - 1:
+
+Print stud_name and address
+
+End
+
+
 
 ## PROGRAM
-
+```
+#include <stdio.h>
+#include <string.h>
+#define MAX_STUDENTS 50
+#define MAX_LENGTH 50
+struct Student {
+    char stud_name[MAX_LENGTH];
+    char address[MAX_LENGTH];
+};
+void sortStudents(struct Student students[], int n) {
+    struct Student temp;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (strcmp(students[i].stud_name, students[j].stud_name) > 0) {
+                temp = students[i];
+                students[i] = students[j];
+                students[j] = temp;
+            }
+        }
+    }
+}
+int main() {
+    struct Student students[MAX_STUDENTS];
+    int n;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%s", students[i].stud_name);
+        scanf("%s", students[i].address);
+    }
+    sortStudents(students, n);
+    for (int i = 0; i < n; i++) {
+        printf("%s      %s\n", students[i].stud_name, students[i].address);
+    }
+    return 0;
+}
+```
 
 ## OUTPUT
+![image](https://github.com/user-attachments/assets/a5601379-0614-4072-82bf-58a972a2e53b)
 
  
 
 ## RESULT
 
-Thus the C program to calculate the total and average of student using structure has been executed successfully.
+Thus the C program to create a student structure having fields stud_name and address. Accept the details of 'n' students, rearrange the data in alphabetical order of student name and display it has been executed successfully.
 	
 
 
